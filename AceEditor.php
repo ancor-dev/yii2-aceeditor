@@ -17,7 +17,11 @@ class AceEditor extends InputWidget{
      * @var string Programming Language Mode
      */
     public $mode = 'html';
-
+    /**
+     * @var boolean Enable inline language mode
+     */
+    public $inline = false;
+    
     /**
      * @var string Editor theme
      * $see Themes List
@@ -42,7 +46,7 @@ class AceEditor extends InputWidget{
         $editor_var = 'aceeditor_'.$editor_id;
         $this->getView()->registerJs("var {$editor_var} = ace.edit(\"{$editor_id}\")");
         $this->getView()->registerJs("{$editor_var}.setTheme(\"ace/theme/{$this->theme}\")");
-        $this->getView()->registerJs("{$editor_var}.getSession().setMode(\"ace/mode/{$this->mode}\")");
+        $this->getView()->registerJs("{$editor_var}.getSession().setMode({path: \"ace/mode/{$this->mode}\", inline: ".($this->inline?'true':'false')."})");
 
         $textarea_var = 'acetextarea_'.$editor_id;
         $this->getView()->registerJs("
